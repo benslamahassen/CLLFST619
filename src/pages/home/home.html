@@ -3,11 +3,10 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-title *ngIf="user" >Home {{user.displayName}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <button ion-button secondary (click)="googleLogin()">Google Login</button>
-  <button ion-button secondary (click)="facebookLogin()">Facebook Login</button>
+  <button ion-button secondary (click)="scan()">Scan</button>
 </ion-content>

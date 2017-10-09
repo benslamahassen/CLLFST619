@@ -1,3 +1,4 @@
+import { loginService } from './../service/login/login.service';
 import { SignupPage } from './../pages/signup/signup';
 import { LoginPage } from './../pages/login/login';
 import { BrowserModule } from '@angular/platform-browser';
@@ -16,7 +17,16 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
-import { Facebook } from '@ionic-native/facebook'
+import { Facebook } from '@ionic-native/facebook';
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyCVG6YiQfPRCneOhYamqmpQFzxFJ1oCuO4",
+  authDomain: "cllfst-d3498.firebaseapp.com",
+  databaseURL: "https://cllfst-d3498.firebaseio.com",
+  projectId: "cllfst-d3498",
+  storageBucket: "cllfst-d3498.appspot.com",
+  messagingSenderId: "28930317512"
+};
 
 @NgModule({
   declarations: [
@@ -28,6 +38,7 @@ import { Facebook } from '@ionic-native/facebook'
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule
   ],
@@ -42,16 +53,8 @@ import { Facebook } from '@ionic-native/facebook'
     StatusBar,
     SplashScreen,
     Facebook,
+    loginService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
 export class AppModule {}
-
-// const firebaseConfig = {
-//   apiKey: "AIzaSyCVG6YiQfPRCneOhYamqmpQFzxFJ1oCuO4",
-//   authDomain: "cllfst-d3498.firebaseapp.com",
-//   databaseURL: "https://cllfst-d3498.firebaseio.com",
-//   projectId: "cllfst-d3498",
-//   storageBucket: "cllfst-d3498.appspot.com",
-//   messagingSenderId: "28930317512"
-// };

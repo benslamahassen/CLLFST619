@@ -1,25 +1,33 @@
+import { HomePage } from './../home/home';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { loginService } from './../../service/login/login.service';
 
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
-@IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
 })
 export class LoginPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  user: any;
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams, 
+    private login: loginService) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
   }
+
+  logInWithGoogle(){
+    this.user = this.login.googleLogin();
+    this.navCtrl.push(HomePage, this.user);
+  }
+  
+  logInWithFacebook(){
+    this.user = this.login.facebookLogin();
+    this.navCtrl.push(HomePage, this.user);    
+  }
+
 
 }
