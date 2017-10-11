@@ -1,9 +1,11 @@
-import { loginService } from './../service/login/login.service';
+import { AngularFireDatabase } from 'angularfire2/database-deprecated';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { nativeService } from './../service/login/login.service';
 import { SignupPage } from './../pages/signup/signup';
 import { LoginPage } from './../pages/login/login';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { IonicApp, IonicErrorHandler, IonicModule, NavController } from 'ionic-angular';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -32,8 +34,6 @@ export const firebaseConfig = {
   declarations: [
     MyApp,
     HomePage,
-    LoginPage,
-    SignupPage
   ],
   imports: [
     BrowserModule,
@@ -53,7 +53,9 @@ export const firebaseConfig = {
     StatusBar,
     SplashScreen,
     Facebook,
-    loginService,
+    nativeService,
+    BarcodeScanner,
+    AngularFireDatabase,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

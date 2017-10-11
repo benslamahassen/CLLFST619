@@ -1,7 +1,16 @@
+import { firebaseUser } from './../../models/user.model';
 import { HomePage } from './../home/home';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { loginService } from './../../service/login/login.service';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { nativeService } from './../../service/login/login.service';
+
+import { AngularFireDatabase, FirebaseObjectObservable, FirebaseListObservable } from "angularfire2/database-deprecated";
+
+import { AngularFireAuth } from 'angularfire2/auth';
+import { Observable } from 'rxjs/Observable';
+import * as firebase from 'firebase/app';
+
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 
 
 @Component({
@@ -9,25 +18,41 @@ import { loginService } from './../../service/login/login.service';
   templateUrl: 'login.html',
 })
 export class LoginPage {
-  user: any;
+  user: firebase.User;
   constructor(
+    public facebook: Facebook,
     public navCtrl: NavController,
-    public navParams: NavParams, 
-    private login: loginService) {
+    public navParams: NavParams,
+    private native: nativeService,
+    private db: AngularFireDatabase,
+    private afAuth: AngularFireAuth) {
   }
 
   ionViewDidLoad() {
   }
 
-  logInWithGoogle(){
-    this.user = this.login.googleLogin();
-    this.navCtrl.push(HomePage, this.user);
-  }
-  
-  logInWithFacebook(){
-    this.user = this.login.facebookLogin();
-    this.navCtrl.push(HomePage, this.user);    
+  logInWithGoogle() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    this.afAuth.auth.signInWithRedirect(provider).then(() => {
+      this.native.loading();
+      this.navCtrl.setRoot(HomePage)
+        .then(() => { })
+        .catch((error) => this.native.alert('Error', error, 'Dismiss'));
+    }).catch((error) => {
+      this.native.alert('Error', error.message, 'Ok');
+    });
   }
 
-
+  logInWithFacebook() {
+    this.facebook.login(['email'])
+      .then((loginResponse: FacebookLoginResponse) => {
+        let credential = firebase.auth.FacebookAuthProvider.credential(loginResponse.authResponse.accessToken)
+        this.afAuth.auth.signInWithCredential(credential)
+          .then(() => {
+            this.native.loading();
+            this.navCtrl.setRoot(HomePage);
+          })
+          .catch(error => this.native.alert('Error', error.message, 'Dismiss'))
+      });
+  }
 }

@@ -1,4 +1,6 @@
-import { loginService } from './../../service/login/login.service';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { LoginPage } from './../login/login';
+import { nativeService } from './../../service/login/login.service';
 import { Component } from '@angular/core';
 import { NavController, Platform, NavParams } from 'ionic-angular';
 
@@ -9,23 +11,32 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  user: any;
+  user: firebase.User;
   barcodeData: any;
-  
+
   constructor(
     public navCtrl: NavController,
     private navParams: NavParams,
     private barcodeScanner: BarcodeScanner,
-    private login: loginService) {
-      this.user = navParams.get('user');
-    }
+    private native: nativeService,
+    private afAuth: AngularFireAuth) {
+    
+      this.afAuth.authState.subscribe(user => this.user = user)
+      this.native.loading();
+  }
+  ionViewDidEnter() {
+    this.native.toast('Welcome ' + this.user.displayName, 4000, 'bottom');
+  }
+  ionViewDidLoad() {
 
-  scan(){
+  }
+  scan() {
 
     this.barcodeScanner.scan().then((barcodeData) => {
       this.barcodeData = barcodeData;
     }, (err) => {
-      this.login.ionicAlert('Error', err , 'Dismiss');
+      this.native.alert('Error', err, 'Dismiss');
     });
   }
+
 }

@@ -14,7 +14,23 @@
 
 
 <ion-content padding>
-  
-  <button ion-button secondary (click)="logInWithGoogle()">Google Login</button>
-  <button ion-button secondary (click)="logInWithFacebook()">Facebook Login</button>
+
+  <ion-list>
+
+    <ion-item>
+      <ion-label floating>Email</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Password</ion-label>
+      <ion-input type="password"></ion-input>
+    </ion-item>
+
+  </ion-list>
+  <button ion-button secondary>Login</button>
+  <ion-icon name="logo-google" style="zoom:2.0;" (click)="logInWithGoogle()"></ion-icon>
+  <ion-icon name="logo-facebook" style="zoom:2.0;" (click)="logInWithFacebook()"></ion-icon>
+
+  <!-- <button ion-button secondary (click)="logInWithFacebook()">Facebook Login</button> -->
 </ion-content>
