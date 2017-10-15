@@ -3,14 +3,20 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title *ngIf="user" >Home</ion-title>
+    <ion-title *ngIf="user" >Home </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-card>
+<ion-spinner *ngIf="!user" ></ion-spinner>
+  <ion-card *ngIf="user" >
     <ion-card-content>{{user.uid }} <br> {{ user.displayName }}</ion-card-content>
-    <ion-img [src]=" user.photoURL "></ion-img>    
+    <ion-img width="80" height="80" [src]=" user.photoURL "></ion-img>    
+  </ion-card>
+  <ion-card *ngIf="barcodeData">
+    <ion-card-content>{{barcodeData }}</ion-card-content>
   </ion-card>
   <button ion-button secondary (click)="scan()">Scan</button>
+  <button ion-button primary (click)="logout()" >Logout</button>
+
 </ion-content>

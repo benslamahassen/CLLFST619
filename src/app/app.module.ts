@@ -1,6 +1,6 @@
+import { nativeService } from './../service/native/native.service';
 import { AngularFireDatabase } from 'angularfire2/database-deprecated';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
-import { nativeService } from './../service/login/login.service';
 import { SignupPage } from './../pages/signup/signup';
 import { LoginPage } from './../pages/login/login';
 import { BrowserModule } from '@angular/platform-browser';
@@ -47,7 +47,7 @@ export const firebaseConfig = {
     MyApp,
     HomePage,
     LoginPage,
-    SignupPage
+    SignupPage,
   ],
   providers: [
     StatusBar,

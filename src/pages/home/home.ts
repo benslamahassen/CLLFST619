@@ -1,6 +1,6 @@
+import { nativeService } from './../../service/native/native.service';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { LoginPage } from './../login/login';
-import { nativeService } from './../../service/login/login.service';
 import { Component } from '@angular/core';
 import { NavController, Platform, NavParams } from 'ionic-angular';
 
@@ -22,7 +22,7 @@ export class HomePage {
     private afAuth: AngularFireAuth) {
     
       this.afAuth.authState.subscribe(user => this.user = user)
-      this.native.loading();
+      // this.native.loading(1000);
   }
   ionViewDidEnter() {
     this.native.toast('Welcome ' + this.user.displayName, 4000, 'bottom');
@@ -37,6 +37,11 @@ export class HomePage {
     }, (err) => {
       this.native.alert('Error', err, 'Dismiss');
     });
+  }
+  
+  logout() {
+    this.afAuth.auth.signOut();
+    this.navCtrl.setRoot(LoginPage);
   }
 
 }

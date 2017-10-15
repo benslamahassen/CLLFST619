@@ -13,10 +13,10 @@ export class nativeService {
         public loadingCtrl: LoadingController
     ) { }
 
-    loading() {
+    loading(duration : number) {
         let loader = this.loadingCtrl.create({
             content: "Please wait...",
-            duration: 3000
+            duration: duration
         });
         loader.present();
     }
