@@ -3,20 +3,38 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title *ngIf="user" >Home </ion-title>
+    <ion-title>Home </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-<ion-spinner *ngIf="!user" ></ion-spinner>
-  <ion-card *ngIf="user" >
-    <ion-card-content>{{user.uid }} <br> {{ user.displayName }}</ion-card-content>
-    <ion-img width="80" height="80" [src]=" user.photoURL "></ion-img>    
+  <ion-card id="welcomeText" *ngIf="!product" >
+    <ion-card-header class="text">Welcome</ion-card-header>
+    <ion-card-content style="font-family: 'Titillium Web', sans-serif;">
+      Use our app to check products for any harmefull componenets. 
+      <br>
+      Also it will tell you if it's a tunisian product or not.
+    </ion-card-content>
   </ion-card>
-  <ion-card *ngIf="barcodeData">
-    <ion-card-content>{{barcodeData }}</ion-card-content>
+  <ion-card *ngIf="product">
+    <ion-card-title>Product</ion-card-title>
+    <ion-card-content>
+      <p class="text">Name : {{ product.name }} </p>
+      <p class="text">Dangers : {{ product.danger }}</p>
+      <!-- <div *ngFor="let d of product.danger" >
+        <p class="text"> {{d.value}} </p>
+      </div> -->
+    </ion-card-content>
   </ion-card>
-  <button ion-button secondary (click)="scan()">Scan</button>
-  <button ion-button primary (click)="logout()" >Logout</button>
-
+  <ion-card *ngIf="product" >
+    <ion-card-header *ngIf="isTunisian" >
+      This product is Tunisian ! 
+    </ion-card-header>
+    <ion-card-header *ngIf="!isTunisian" >
+      This product is NOT Tunisian ! 
+    </ion-card-header>
+  </ion-card>
+  <div class="spacer" style="height: 40px;"></div>
+  <button ion-button secondary (click)="scan()" outline block>Scan</button>
+  <button ion-button primary (click)="logout()" outline block>Logout</button>
 </ion-content>

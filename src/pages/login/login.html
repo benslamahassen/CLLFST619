@@ -1,15 +1,9 @@
-<ion-header>
+<!-- <ion-header >
 
-  <ion-navbar>
-    <ion-buttons start>
-      <button ion-button icon-only>
-        <ion-icon name="log-in"></ion-icon>
-      </button>
-    </ion-buttons>
+  <ion-navbar color='dark'>
     <ion-title>Login</ion-title>
   </ion-navbar>
-
-</ion-header>
+</ion-header> -->
 
 
 <!-- <ion-content padding id="login" style="background-color:#1EA7FF;"> -->
@@ -31,19 +25,29 @@
   <ion-icon name="logo-facebook" style="zoom:4.0;" (click)="logInWithFacebook()"></ion-icon> -->
 <ion-content scroll="false">
   <section class="login-container">
-    <div class="col header text-center">
-      <img src="./img/ionic.png" class="logo" />
+    <div class="col header">
+      <ion-img id="avatar" height="200" width="200" src="assets/img/user.png"></ion-img>
     </div>
-    <div class="col button-row text-center">
-      <img src="./img/facebook-button.png" />
-    </div>
-    <div class="col button-row text-center">
-      <img src="./img/email-button.png" />
-    </div>
-    <div class="col text-center">
+      <div id="facebook" (click)="logInWithFacebook()">
+        <div class="icon-container">
+          <i class="fa fa-facebook icon-social" aria-hidden="true" ></i>
+        </div>       
+          <p class="text-login">Log In With Facebook</p>
+      </div>
+      <div id="google" (click)="logInWithGoogle()">
+        <div class="icon-container">
+          <i class="fa fa-google icon-social" aria-hidden="true" ></i>
+        </div>       
+          <p class="text-login">Log In With Google</p>
+      </div>
+    
+      <div class="signup" (click)="signUp()">
+        <p> Sign up with Email</p>        
+      </div>
+    <div class="col text">
       Already have an account?
       <strong>
-        <a href="#">Sign in now!</a>
+        <a (click)="signInWithEmail()">Sign in now!</a>
       </strong>
     </div>
   </section>

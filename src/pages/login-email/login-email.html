@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar color='dark'>
+    <ion-title>Login </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+    <div class="spacer" style="height: 40px;"></div>    
+    <ion-item>
+      <ion-label floating>Email</ion-label>
+      <ion-input type="email" [(ngModel)]="user.email" name="email"></ion-input>
+    </ion-item>
+    <div class="spacer" style="height: 20px;"></div>    
+    
+    <ion-item>
+      <ion-label floating>Password</ion-label>
+      <ion-input type="password" [(ngModel)]="user.password" name="password"></ion-input>
+    </ion-item>
+    <div class="spacer" style="height: 100px;"></div>    
+    
+    <button ion-button (click)="loginWithEmail(user)" outline block>Login</button>
+</ion-content>

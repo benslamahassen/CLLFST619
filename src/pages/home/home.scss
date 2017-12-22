@@ -1,3 +1,10 @@
-page-home {
-
+#welcomeText {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;    
+}
+text{
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 20px;
 }

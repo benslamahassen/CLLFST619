@@ -1,14 +1,96 @@
 logIn-input-email, logIn-input-password {
-background-color: white;
+    background-color: white;
 }
+
 .login-container {
-    display: -webkit-flex;
-    -webkit-flex-direction: column;
+    display: flex;
+    flex-direction: column;
     height: 100%;
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#efad62), color-stop(100%,#f7d47c));
-    background: -webkit-linear-gradient(top, #efad62 0%,#f7d47c 100%);
+    justify-content: center;
+    align-items: center;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1ea7ff), color-stop(100%,#f7d47c));
+    background: -webkit-linear-gradient(top, #1ea7ff 0%,#e4dffc 100%);
 }
-.login-container > .header {
-    -webkit-flex: 4;
-    padding-top: 20px;
+.login-container > .col {
+    flex-direction: column;    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login-container > .header, {
+    flex: 4;
+    flex-direction: column;    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#facebook {
+    display: flex;
+    flex-direction: row;
+    width: 305px;
+    height: 50px;
+    background-color: #3b5998;
+    margin-bottom: 5px ;
+}
+
+#google {
+    display: flex;
+    flex-direction: row;
+    width: 305px;
+    height: 50px;    
+    background-color: #E24825;
+    margin-bottom: 30px;
+}
+
+.text-login {
+    color: white;
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 19px;
+    display: flex;
+    justify-content: center ;
+    align-items: center;
+    flex-grow: 1;
+}
+.icon-social {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: white ;
+    zoom: 2.3;
+    padding: 1px;
+}
+.icon-container {
+    display: flex;
+    flex-basis: 20%;
+    justify-content: center;
+    align-items: center;
+}
+#avatar {
+    border-radius: 50%;
+}
+
+.signup {
+    background: white;
+    width: 305px;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 22px;
+    color: #1ea7ff;
+}
+.col {
+    padding: 0px;
+    margin: 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.text {
+    font-family: 'Titillium Web', sans-serif;
+    
 }

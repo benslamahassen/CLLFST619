@@ -1,10 +1,11 @@
+import { LoginEmailPage } from './../login-email/login-email';
+import { SignupPage } from './../signup/signup';
 import { nativeService } from './../../service/native/native.service';
-import { firebaseUser } from './../../models/user.model';
 import { HomePage } from './../home/home';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, MenuController } from 'ionic-angular';
 
-import { AngularFireDatabase, FirebaseObjectObservable, FirebaseListObservable } from "angularfire2/database-deprecated";
+import { AngularFireDatabase } from "angularfire2/database-deprecated";
 
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
@@ -21,29 +22,34 @@ export class LoginPage {
   constructor(
     public facebook: Facebook,
     public navCtrl: NavController,
-    public navParams: NavParams,
     private native: nativeService,
     private db: AngularFireDatabase,
-    private afAuth: AngularFireAuth) {
+    private afAuth: AngularFireAuth,
+    public menu: MenuController) {
+      this.menu.enable(false, 'menu');
+      
   }
 
-  ionViewDidLoad() {
-  }
-  save ( user: firebaseUser){
-    this.db.object('/users/' + user.$key ).update({
-      name: user.name,
-      email: user.email,
-      picUrl: user.picture,
-      }) 
-  }
   logInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
-    this.afAuth.auth.signInWithRedirect(provider)
-    .then(()=>{
-      this.navCtrl.setRoot(HomePage)
-        .catch((err)=>this.native.alert('Error', err, 'Dismiss'));
+    this.afAuth.auth.signInWithRedirect(provider).then(() => {
+      this.afAuth.auth.getRedirectResult()
+        .then((user: firebase.User) => {
+          this.db.object('/users/' + user.uid).update({
+            name: user.displayName,
+            email: user.email,
+            picUrl: user.photoURL,
+            prodvider: "Google",
+          })
+            .then(() => {
+              this.navCtrl.setRoot(HomePage)
+                .catch((err) => this.native.alert('Home Navigation Error', err, 'Dismiss'));
+            });
+        })
+        .catch((err) => this.native.alert('Result Google Error', err.message, 'Ok'));
     })
-    .catch((err)=>this.native.alert('Error', err.message, 'Ok'));
+      .catch((err) => this.native.alert('Login Google Error', err.message, 'Ok'));
+
   }
 
   logInWithFacebook() {
@@ -51,11 +57,34 @@ export class LoginPage {
       .then((loginResponse: FacebookLoginResponse) => {
         let credential = firebase.auth.FacebookAuthProvider.credential(loginResponse.authResponse.accessToken)
         this.afAuth.auth.signInWithCredential(credential)
-          .then(() => {
-            this.navCtrl.setRoot(HomePage)
-            .catch((err)=>this.native.alert('Error', err, 'Dismiss'));
+          .then((user: firebase.User) => {
+            this.db.object('/users/' + user.uid).update({
+              name: user.displayName,
+              email: user.email,
+              picUrl: user.photoURL,
+              prodvider: 'Facebook',
+            })
+              .then(() => {
+                localStorage.setItem('uid', user.uid);
+                localStorage.setItem('name', user.displayName);
+                localStorage.setItem('picture', user.photoURL);
+
+                this.navCtrl.setRoot(HomePage)
+                  .catch((err) => this.native.alert('Error', err, 'Dismiss'));
+              })
           })
           .catch(error => this.native.alert('Error', error.message, 'Dismiss'))
       });
+  }
+
+  signUp() {
+    this.navCtrl.push(SignupPage);
+  }
+
+  signInWithEmail() {
+    this.navCtrl.push(LoginEmailPage);
+  }
+  ionViewDidLeave(){
+   this.menu.enable(true, 'menu');
   }
 }

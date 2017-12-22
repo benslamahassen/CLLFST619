@@ -1,50 +1,31 @@
 <ion-header>
-    <ion-navbar>
-      <button ion-button menuToggle>
-        <ion-icon name="menu"></ion-icon>
-      </button>
-      <ion-buttons start>
-        <button ion-button icon-only>
-          <ion-icon name="create"></ion-icon>
-        </button>
-      </ion-buttons>
-      <ion-title>
-        Signup
-      </ion-title>
-    </ion-navbar>
-  </ion-header>
-  <ion-content padding id="page4" style="background-color:#1EA7FF;">
-    <form id="signup-form">
-      <div id="signup-container">
-        <ion-list id="signup-list">
-          <ion-item id="signup-input-name">
-            <ion-label>
-              Name
-            </ion-label>
-            <ion-input type="text" placeholder=""></ion-input>
-          </ion-item>
-          <ion-item id="signup-input-email">
-            <ion-label>
-              Email
-            </ion-label>
-            <ion-input type="email" placeholder=""></ion-input>
-          </ion-item>
-          <ion-item id="signup-input-password">
-            <ion-label>
-              Password
-            </ion-label>
-            <ion-input type="password" placeholder=""></ion-input>
-          </ion-item>
-          <ion-item id="signup-input-password-confirm">
-            <ion-label>
-              Password
-            </ion-label>
-            <ion-input type="password" placeholder=""></ion-input>
-          </ion-item>
-        </ion-list>
-        <button id="signup-button2" ion-button color="light" block style="border-radius:0px 0px 0px 0px;">
-          Sign up
-        </button>
-      </div>
-    </form>
-  </ion-content>
+  <ion-navbar color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Signup
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content class="signup-container" padding>
+  <div>
+    <div class="spacer" style="height: 40px;"></div>
+    <ion-item>
+      <ion-label floating>Name</ion-label>
+      <ion-input type="text" [(ngModel)]="user.name" name="name"></ion-input>
+    </ion-item>
+    <div class="spacer" style="height: 20px;"></div>    
+    <ion-item>
+      <ion-label floating>Email</ion-label>
+      <ion-input type="email" [(ngModel)]="user.email" name="name"></ion-input>
+    </ion-item>
+    <div class="spacer" style="height: 20px;"></div>    
+    <ion-item>
+      <ion-label floating>Password</ion-label>
+      <ion-input type="password" [(ngModel)]="user.password" name="password"></ion-input>
+    </ion-item>
+    <div class="spacer" style="height: 100px;"></div>    
+    <button ion-button (click)="signUp(user)" outline block>Sign up</button>
+  </div>
+</ion-content>  

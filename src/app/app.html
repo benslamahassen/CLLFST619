@@ -1,11 +1,19 @@
-<ion-menu [content]="content">
+<ion-menu [content]="content" type="push" id="menu">
   <ion-header>
-    <ion-toolbar>
+    <ion-toolbar color="dark">
       <ion-title>Menu</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <ion-content>
+    <div id='userDisplay'>
+      <ion-spinner *ngIf="!name" ></ion-spinner>
+      <div id='userDisplay' *ngIf="name" >
+        <p> {{ name }}</p>
+        <br><br>
+        <img id='userPicture' height="170" width="170" [src]="photoURL" alt="User Picture">
+      </div>
+    </div>
     <ion-list>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}

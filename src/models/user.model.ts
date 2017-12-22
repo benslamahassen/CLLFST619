@@ -1,6 +1,8 @@
-export interface firebaseUser {
-    $key: string;
-    name: string;
+export interface User {
+    $key?: number;
     email: string;
-    picture: string;    
+    name: string;
+    password: string;
+    picURL: string;
+    provider: string;
 }
